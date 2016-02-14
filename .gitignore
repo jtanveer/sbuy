@@ -1,3 +1,4 @@
+
 # User specific & automatically generated files #
 #################################################
 /app/Config/database.php
@@ -25,3 +26,16 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+# CakePHP 3
+
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*
+
+# CakePHP 2
+
+/app/tmp/*
+/app/Config/core.php
+/app/Config/database.php
+/vendors/*
