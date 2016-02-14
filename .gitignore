@@ -37,5 +37,5 @@ Thumbs.db
 
 /app/tmp/*
 /app/Config/core.php
-/app/Config/database.php
+#/app/Config/database.php
 /vendors/*
