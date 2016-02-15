@@ -40,6 +40,11 @@
 /**
  * Configure REST API
  */
+Router::resourceMap(array(
+    array('controller' => 'products', 'action' => 'view', 'method' => 'GET', 'id' => false),
+    array('controller' => 'products', 'action' => 'search', 'method' => 'GET', 'id' => false),
+    array('controller' => 'products', 'action' => 'order', 'method' => 'POST', 'id' => false)
+));
 Router::mapResources('products');
 Router::parseExtensions();
 

@@ -52,11 +52,10 @@ class ProductsController extends AppController {
         $this->response->body($json);
     }
 
-    public function order($code, $phone) {
-        preg_replace('/%u([0-9A-F]+)/', '&#x$1;', $phone);
-        $phone = html_entity_decode($phone, ENT_COMPAT, 'UTF-8');
-        print_r($phone);
-        print_r(preg_match('/^(?:\+?88)?01[15-9]\d{8}$/', $phone));die;
+    public function order() {
+        // print_r($this->params->data);
+        $code = $this->params->data['code'];
+        $phone = $this->params->data['phone'];
         $this->autoRender = false; // no view to render
         $this->response->type('json');
         $products = $this->Product->find('first', array(
