@@ -53,6 +53,7 @@ class ProductsController extends AppController {
     }
 
     public function order($code, $phone) {
+        print_r($phone);
         print_r(preg_match('/^(?:\+?88)?01[15-9]\d{8}$/', $phone));die;
         $this->autoRender = false; // no view to render
         $this->response->type('json');
