@@ -12,7 +12,7 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'sbuy-jtanveer.rhcloud.com',
+		'host' => 'localhost',
 		'port' => 3306,
 		'login' => 'adminCieXbhx',
 		'password' => '_dNF7mrygg3J',
