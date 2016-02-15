@@ -32,6 +32,8 @@ class ProductsController extends AppController {
     }
 
     public function search($tag) {
+        $this->autoRender = false; // no view to render
+        $this->response->type('json');
         $products = $this->Product->find('all', array(
         	'joins' => array(
         		array('table' => 'tags',
@@ -45,38 +47,42 @@ class ProductsController extends AppController {
         	'conditions' => array('MATCH(Tag.tag) AGAINST(? IN BOOLEAN MODE)' => $tag),
         	'recursive' => -1
     	));
-        $this->set(array(
-            'products' => $products,
-            '_serialize' => array('products')
-        ));
+        $products = Set::extract('/Product/.', $products);
+        $json = json_encode($products);
+        $this->response->body($json);
     }
 
     public function order($code, $phone) {
+        $this->autoRender = false; // no view to render
+        $this->response->type('json');
         $products = $this->Product->find('first', array(
         	'conditions' => array('Product.code' => $code),
         	'recursive' => -1
     	));
     	if (count($products)) {
+            $message = array();
     		if ($products['Product']['quantity'] > 0) {
 	    		$data = array();
 	    		$data['product_code'] = $code;
 	    		$data['phone'] = $phone;
 	    		$this->Order->create();
 	    		if ($this->Order->save($data, array('validate' => 'first'))) {
-	    			$message = 'Order placed! Our customer manager will communicate with you shortly.';
+                    $message['status'] = 'OK';
+	    			$message['message'] = 'Order placed! Our customer manager will communicate with you shortly.';
 	    		} else {
-	    			$message = 'Error Occurred! Please try again.';
+                    $message['status'] = 'FAILED';
+	    			$message['message'] = 'Error Occurred! Please try again.';
 	    		}
 	    	} else {
-	    		$message = 'Item not available! Please order something else.';
+                $message['status'] = 'FAILED';
+	    		$message['message'] = 'Item not available! Please order something else.';
 	    	}
     	} else {
-    		$message = 'Invalid product code!';
+            $message['status'] = 'FAILED';
+    		$message['message'] = 'Invalid product code!';
     	}
-        $this->set(array(
-            'message' => $message,
-            '_serialize' => array('message')
-        ));
+        $json = json_encode($message);
+        $this->response->body($json);
     }
 
 }
