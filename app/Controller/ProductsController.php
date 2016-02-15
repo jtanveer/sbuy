@@ -26,8 +26,10 @@ class ProductsController extends AppController {
     	// Remove Product from array and encode
 	    if (count($product)) {
 	    	$product = $product['Product'];
-	    }
-	    $json = json_encode($product);
+            $json = json_encode($product);
+	    } else {
+            $json = "{}";
+        }
 	    $this->response->body($json);
     }
 
