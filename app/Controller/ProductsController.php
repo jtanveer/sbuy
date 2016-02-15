@@ -17,8 +17,8 @@ class ProductsController extends AppController {
 	public $scaffold;
 
 	public function view($code) {
-		$this->autoRender = false; // no view to render
-    	$this->response->type('json');
+		// $this->autoRender = false; // no view to render
+  //   	$this->response->type('json');
         $product = $this->Product->find('first', array(
         	'conditions' => array('Product.code' => $code),
         	'recursive' => -1
@@ -27,8 +27,12 @@ class ProductsController extends AppController {
 	    if (count($product)) {
 	    	$product = $product['Product'];
 	    }
-	    $json = json_encode($product);
-	    $this->response->body($json);
+	    // $json = json_encode($product);
+	    // $this->response->body($json);
+        $this->set(array(
+            'product' => $product,
+            '_serialize' => array('product')
+        ));
     }
 
     public function search($tag) {
