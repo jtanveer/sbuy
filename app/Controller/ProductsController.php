@@ -44,7 +44,7 @@ class ProductsController extends AppController {
 			        )
 		    	)
     		), 
-        	'conditions' => array('MATCH(Tag.tag) AGAINST(? IN BOOLEAN MODE)' => $tag),
+        	'conditions' => array('Tag.tag' => $tag),
         	'recursive' => -1
     	));
         $products = Set::extract('/Product/.', $products);
